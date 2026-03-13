@@ -1,18 +1,13 @@
 # To-Do List App
 
-Simple task management application built with HTML, CSS and JavaScript.
+This project was created as part of my learning journey in web development.
 
-## Features
+The goal is to practice fundamental concepts such as:
 
-- Add tasks
-- Remove tasks
+- HTML structure
+- DOM manipulation
+- JavaScript logic
+- LocalStorage
+- Git and GitHub workflow
 
-## Technologies
-
-- HTML
-- CSS
-- JavaScript
-
-## Author
-
-Luísa Lessa
+The project evolves gradually as I learn new concepts.

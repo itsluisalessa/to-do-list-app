@@ -1,3 +1,10 @@
+let tarefas = [];
+
+let tarefasSalvas = localStorage.getItem("tarefas");
+if(tarefasSalvas) {
+    tarefas = JSON.parse(tarefasSalvas);
+}
+
 let botaoTarefa = document.getElementById("botao-tarefa");
 let lista = document.getElementById("lista");
 
@@ -12,22 +19,71 @@ function adicionarTarefa() {
         return;
     }
 
-    let novaTarefa = document.createElement("li");
-    novaTarefa.textContent = tarefa;
+    let novaTarefa = {
+    texto: tarefa,
+    concluida: false
+    };
 
-    lista.appendChild(novaTarefa);
+    tarefas.push(novaTarefa);
+    salvarTarefas();
+    renderizarTarefas();
 
     document.getElementById("tarefa").value = "";
 
-    let botaoRemover = document.createElement("button");
-    botaoRemover.textContent = "Remover";
-    
-    botaoRemover.addEventListener("click", removerTarefa);
-
-    novaTarefa.appendChild(botaoRemover);
-    
 }
 
-function removerTarefa() {
-        this.parentElement.remove();
+function salvarTarefas() {
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
 }
+
+function renderizarTarefas() {
+
+    lista.innerHTML = "";
+
+    for (let i = 0; i < tarefas.length; i++) {
+
+        let item = document.createElement("li");
+
+        let texto = document.createElement("span");
+        texto.textContent = tarefas[i].texto;
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = tarefas[i].concluida;
+
+        let botaoRemover = document.createElement("button");
+        botaoRemover.textContent = "Remover";
+
+        checkbox.addEventListener("change", function() {
+        tarefas[i].concluida = checkbox.checked;
+        salvarTarefas();
+        });
+        
+        botaoRemover.addEventListener("click", function () {
+            removerTarefa(i);
+        });
+
+        item.appendChild(texto);
+        item.appendChild(checkbox);
+        item.appendChild(botaoRemover);
+        lista.appendChild(item);
+
+        if (tarefas[i].concluida) {
+            texto.style.textDecoration = "line-through";
+            texto.style.color = "gray";
+        }
+    }
+}
+
+function removerTarefa(index) {
+
+    tarefas.splice(index, 1);
+
+    salvarTarefas();
+    renderizarTarefas();
+
+}
+
+
+
+renderizarTarefas();
