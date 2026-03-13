@@ -76,8 +76,21 @@ function renderizarTarefas() {
 
     }
 
-    
+    let contador = document.getElementById("contador");
 
+    let totalTarefas = tarefas.length;
+    
+    let concluidas = 0;
+
+    tarefas.forEach(tarefa => {
+        if (tarefa.concluida) {
+        concluidas++;
+        }
+    });
+
+    let pendentes =  totalTarefas - concluidas;
+
+    contador.textContent = `Total: ${totalTarefas} | Concluídas: ${concluidas} | Pendentes: ${pendentes}`;
 }
 
 function removerTarefa(index) {
@@ -86,7 +99,5 @@ function removerTarefa(index) {
     salvarTarefas();
     renderizarTarefas();
 }
-
-
 
 renderizarTarefas();
