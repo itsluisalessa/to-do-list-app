@@ -7,12 +7,19 @@ if(tarefasSalvas) {
 
 let botaoTarefa = document.getElementById("botao-tarefa");
 let lista = document.getElementById("lista");
+let inputTarefa = document.getElementById("tarefa");
 
 botaoTarefa.addEventListener("click", adicionarTarefa);
 
+inputTarefa.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        adicionarTarefa();
+    }
+});
+
 function adicionarTarefa() {
     
-    let tarefa = document.getElementById("tarefa").value.trim();
+    let tarefa = inputTarefa.value.trim();
 
     if (tarefa === "") {
         alert("Digite uma tarefa!");
