@@ -47,6 +47,11 @@ function renderizarTarefas() {
         let texto = document.createElement("span");
         texto.textContent = tarefas[i].texto;
 
+        if (tarefas[i].concluida) {
+            texto.style.textDecoration = "line-through";
+            texto.style.color = "gray";
+        }
+
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = tarefas[i].concluida;
@@ -57,6 +62,7 @@ function renderizarTarefas() {
         checkbox.addEventListener("change", function() {
         tarefas[i].concluida = checkbox.checked;
         salvarTarefas();
+        renderizarTarefas();
         });
         
         botaoRemover.addEventListener("click", function () {
@@ -68,20 +74,17 @@ function renderizarTarefas() {
         item.appendChild(botaoRemover);
         lista.appendChild(item);
 
-        if (tarefas[i].concluida) {
-            texto.style.textDecoration = "line-through";
-            texto.style.color = "gray";
-        }
     }
+
+    
+
 }
 
 function removerTarefa(index) {
-
     tarefas.splice(index, 1);
 
     salvarTarefas();
     renderizarTarefas();
-
 }
 
 
