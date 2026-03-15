@@ -55,8 +55,7 @@ function renderizarTarefas() {
         texto.textContent = tarefas[i].texto;
 
         if (tarefas[i].concluida) {
-            texto.style.textDecoration = "line-through";
-            texto.style.color = "gray";
+            texto.classList.add("concluida");
         }
 
         let checkbox = document.createElement("input");
@@ -68,6 +67,11 @@ function renderizarTarefas() {
 
         checkbox.addEventListener("change", function() {
         tarefas[i].concluida = checkbox.checked;
+        if (checkbox.checked) {
+        texto.classList.add("concluida");
+        } else {
+        texto.classList.remove("concluida");
+        }
         salvarTarefas();
         renderizarTarefas();
         });
